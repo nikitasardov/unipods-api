@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request, Response
-#from flask_cors import CORS
+# from flask_cors import CORS
 import json
-import get_functions
-import put_functions
 
+import put_functions
+from flask import Flask, request, Response
+
+from old_flask import get_functions
 
 app = Flask(__name__)
 #cors = CORS(app)
