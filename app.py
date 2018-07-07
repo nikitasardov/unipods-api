@@ -7,7 +7,7 @@
 
 try:
     from env_config import *
-except ModuleNotFoundError:
+except ImportError:
     with open('env_config.py', 'w', encoding='utf-8') as f:
         f.write("APP_PORT = 4507\nAPP_ENV = 'dev'\nAPP_DEBUG = True")
         f.close()
