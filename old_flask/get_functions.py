@@ -150,4 +150,3 @@ def get_article_by_id(article_id, app_data):
             'text': '',
             'comments': []
         }
-

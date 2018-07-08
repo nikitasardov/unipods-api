@@ -22,14 +22,13 @@ from eve import Eve
 app = Eve()
 print('====> Using db "{}" <===='.format(APP_DB))
 
-@app.after_request
-def cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS, PUT'
-    response.headers['Content-Type'] = 'application/json; charset=utf-8'
-
-    return response
+# @app.after_request
+# def cors_headers(response):
+#     response.headers['Access-Control-Allow-Origin'] = '*'
+#     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+#     response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS, PUT'
+#     response.headers['Content-Type'] = 'application/json; charset=utf-8'
+#     return response
 if __name__ == '__main__':
     app.debug = APP_DEBUG
     app.run(host='0.0.0.0', port=APP_PORT)

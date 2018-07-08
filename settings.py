@@ -11,11 +11,20 @@ except ImportError:
     APP_DEBUG = True
     APP_DB = APP_ENV + '_unipods'
 
-from resources.users import USERS
-from resources.podcasts import PODCASTS
-from resources.comments import COMMENTS
-from resources.stars import STARS
-from resources.categories import CATEGORIES
+import resources as res
+
+# CORS
+if APP_ENV == 'prod':
+    X_DOMAINS = ['unipods.ru']
+else:
+    X_DOMAINS = '*'
+
+X_HEADERS = ['Content-Type']
+# X_EXPOSE_HEADERS
+
+X_ALLOW_CREDENTIALS = True
+
+UPSERT_ON_PUT = False
 
 # замените user, password, ds049945.mongolab.com, example на ваши данные доступа к БД.
 MONGO_URI = "mongodb://127.0.0.1:27017/" + APP_DB
@@ -24,16 +33,14 @@ MONGO_URI = "mongodb://127.0.0.1:27017/" + APP_DB
 # мы включаем поддержку методов POST, PUT, PATCH, DELETE.
 RESOURCE_METHODS = ['GET', 'POST']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
+PUBLIC_METHODS = ['GET', 'POST']
+PUBLIC_ITEM_METHODS = ['GET', 'POST']
 
 # describing resourses
 DOMAIN = {
-    'users': USERS,
-
-    'podcasts': PODCASTS,
-
-    'comments': COMMENTS,
-
-    'stars': STARS,
-
-    'categories': CATEGORIES,
+    'users': res.USERS,
+    'podcasts': res.PODCASTS,
+    'comments': res.COMMENTS,
+    'stars': res.STARS,
+    'categories': res.CATEGORIES,
 }

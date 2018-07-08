@@ -77,8 +77,22 @@ USERS = {
             'required': True,
             'default': 0,
         },
+
         'birthday': {
             'type': 'datetime',
         },
-    }
+    },
+
+    'datasource': {
+        'projection': {
+            'username': 1,
+            'firstname': 1,
+            'lastname': 1,
+            'email': 1,
+            'pic': 0,
+            'links_for_bio': 1,
+            'role': 1,
+            'gender': 1,
+        }
+    },
 }
