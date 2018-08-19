@@ -149,7 +149,7 @@ Params:
 Token-based authentication is considered a version of Basic Authentication.
 Authorization header contains the auth token as the username, and no password.
 
-If-Match header should contain proper _etag, otherwise you'll get error 412 "Precondition failed" or 428 for abcent If-Match
+If-Match header should contain proper _etag, otherwise you'll get error 412 "Precondition failed" or 428 for absent If-Match
 
     'username',
     'firstname',
