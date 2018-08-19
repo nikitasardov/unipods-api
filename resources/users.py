@@ -127,7 +127,6 @@ USERS = {
             'links_for_bio': 1,
             'gender': 1,
             'birthday': 1,
-            'token': 1,
             'role': 1,
             'status': 1,
             'deleted': 1
