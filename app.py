@@ -1,9 +1,4 @@
-# Полноценный REST API для перфекционистов за 5 минут
-# https://habr.com/post/276731/
-
-# http://python-eve.org/features.html
-
-# https://www.digitalocean.com/community/tutorials/mongodb-ubuntu-16-04-ru
+# -*- coding: utf-8 -*-
 
 try:
     from env_config import *
@@ -19,7 +14,9 @@ except ImportError:
     APP_DB = APP_ENV + '_unipods'
 
 from eve import Eve
-app = Eve()
+from eve.auth import TokenAuth
+import resources as res
+
 print('====> Using db "{}" <===='.format(APP_DB))
 
 # @app.after_request
@@ -29,6 +26,21 @@ print('====> Using db "{}" <===='.format(APP_DB))
 #     response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS, PUT'
 #     response.headers['Content-Type'] = 'application/json; charset=utf-8'
 #     return response
+
+
+class AuthByToken(TokenAuth):
+    def check_auth(self, token, allowed_roles, resource, method):
+        # use Eve's own db driver; no additional connections/resources are used
+        users = app.data.driver.db['users']
+        lookup = {'token': token}
+        # if allowed_roles:
+        #     # only retrieve a user if his roles match ``allowed_roles``
+        #     lookup['roles'] = {'$in': allowed_roles}
+        user = users.find_one(lookup)
+        return user
+
 if __name__ == '__main__':
+    app = Eve(auth=AuthByToken)
+    app.on_insert_users += res.users.add_user_defaults
     app.debug = APP_DEBUG
     app.run(host='0.0.0.0', port=APP_PORT)

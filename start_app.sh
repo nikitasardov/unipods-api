@@ -1,0 +1,1 @@
+nohup python3 app.py & tail -f nohup.out
