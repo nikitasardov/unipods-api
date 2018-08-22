@@ -170,3 +170,45 @@ USERS_AUTH = {
         }
     }
 }
+
+USERS_AUTH_CHECK = {
+    'url': 'users/auth/check',
+    'pagination': False,
+
+    'additional_lookup': {
+        'url': 'regex("[\w]+")',
+        'field': 'token',
+    },
+
+    'resource_methods': [],
+    'public_methods': [],
+
+    'item_methods': ['GET'],
+    'public_item_methods': ['GET'],
+
+    'schema': {
+        'token': {
+            'type': 'string',
+            'required': True,
+            'unique': True,
+        },
+    },
+
+    'datasource': {
+        'source': 'users',
+        'projection': {
+            'username': 1,
+            'firstname': 1,
+            'lastname': 1,
+            'email': 1,
+            'pic': 1,
+            'links_for_bio': 1,
+            'gender': 1,
+            'birthday': 1,
+            'role': 1,
+            'status': 1,
+            'deleted': 1,
+            'token': 1,
+        }
+    }
+}

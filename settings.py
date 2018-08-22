@@ -161,7 +161,8 @@ MONGO_WRITE_CONCERN = {'w': 1}
 # describing resourses
 DOMAIN = {
     'users': res.users.USERS,
-    'auth': res.users.USERS_AUTH,
+    'users_auth': res.users.USERS_AUTH,
+    'users_auth_check': res.users.USERS_AUTH_CHECK,
     'categories': res.CATEGORIES,
     'podcasts': res.PODCASTS,
     'comments': res.COMMENTS,

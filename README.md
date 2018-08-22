@@ -3,6 +3,7 @@
 - Get token
 - Get account data
 - Modify user`s data by user
+- Check token
 - Useful links
 
 ### Register user
@@ -162,6 +163,35 @@ If-Match header should contain proper _etag, otherwise you'll get error 412 "Pre
     'birthday'
 
 See list of available fields with descriptions in "Register user"
+
+### Check token
+Endpoint: /users/auth/check/\<token>
+
+Method: GET
+
+Returns:
+
+    'projection': {
+        'username': 1,
+        'firstname': 1,
+        'lastname': 1,
+        'email': 1,
+        'pic': 1,
+        'links_for_bio': 1,
+        'gender': 1,
+        'birthday': 1,
+        'role': 1,
+        'status': 1,
+        'deleted': 1,
+        'token': 1,
+    }
+
+In eve projection defines available fields of response. Pass is not included here.
+
+Params:
+
+    no params
+
 
 ### Useful links
 ##### flask
