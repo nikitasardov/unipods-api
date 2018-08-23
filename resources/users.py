@@ -167,6 +167,18 @@ USERS_AUTH = {
         'source': 'users',
         'projection': {
             'token': 1,
+
+            'username': 0,
+            'firstname': 0,
+            'lastname': 0,
+            'email': 0,
+            'pic': 0,
+            'links_for_bio': 0,
+            'gender': 0,
+            'birthday': 0,
+            'role': 0,
+            'status': 0,
+            'deleted': 0,
         }
     }
 }
@@ -197,18 +209,19 @@ USERS_AUTH_CHECK = {
     'datasource': {
         'source': 'users',
         'projection': {
-            'username': 1,
-            'firstname': 1,
-            'lastname': 1,
-            'email': 1,
-            'pic': 1,
-            'links_for_bio': 1,
-            'gender': 1,
-            'birthday': 1,
-            'role': 1,
-            'status': 1,
-            'deleted': 1,
             'token': 1,
+
+            'username': 0,
+            'firstname': 0,
+            'lastname': 0,
+            'email': 0,
+            'pic': 0,
+            'links_for_bio': 0,
+            'gender': 0,
+            'birthday': 0,
+            'role': 0,
+            'status': 0,
+            'deleted': 0,
         }
     }
 }

@@ -64,7 +64,7 @@ else:
     X_DOMAINS = ['*']
 X_DOMAINS_RE = None
 
-X_HEADERS = ['Content-Type']
+X_HEADERS = ['Content-Type', 'Authorization']
 X_EXPOSE_HEADERS = None
 X_ALLOW_CREDENTIALS = True
 X_MAX_AGE = 21600
