@@ -86,12 +86,20 @@ Method: GET
 
 Returns:
 
-    {
-        "_created": "Thu, 01 Jan 1970 00:00:00 GMT",
-        "_etag": "25c6a615225e021c70886ab266d7acbcaf23ee88",
-        "_id": "5b790c89dbf7245f2f6e1580",
-        "_updated": "Thu, 01 Jan 1970 00:00:00 GMT",
-        "token": "d9cfbf48bac4e8488ed13d6125572d4ceb5092b6"
+    'projection': {
+        'token': 1,
+
+        'username': 0,
+        'firstname': 0,
+        'lastname': 0,
+        'email': 0,
+        'pic': 0,
+        'links_for_bio': 0,
+        'gender': 0,
+        'birthday': 0,
+        'role': 0,
+        'status': 0,
+        'deleted': 0,
     }
 
 Params:
@@ -172,18 +180,19 @@ Method: GET
 Returns:
 
     'projection': {
-        'username': 1,
-        'firstname': 1,
-        'lastname': 1,
-        'email': 1,
-        'pic': 1,
-        'links_for_bio': 1,
-        'gender': 1,
-        'birthday': 1,
-        'role': 1,
-        'status': 1,
-        'deleted': 1,
         'token': 1,
+
+        'username': 0,
+        'firstname': 0,
+        'lastname': 0,
+        'email': 0,
+        'pic': 0,
+        'links_for_bio': 0,
+        'gender': 0,
+        'birthday': 0,
+        'role': 0,
+        'status': 0,
+        'deleted': 0,
     }
 
 In eve projection defines available fields of response. Pass is not included here.
