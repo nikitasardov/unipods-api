@@ -1,12 +1,17 @@
-### Contents
-- Register user
-- Get token
-- Get account data
-- Modify user`s data by user
-- Check token
-- Useful links
+## Contents
+**[Register user](#register-user)**
 
-### Register user
+**[Get token](#get-token)**
+
+**[Get user](#get-user)**
+
+**[Update user](#update-user)**
+
+**[Check token](#check-token)**
+
+**[Useful links](#useful-links)**
+
+## Register user
 Endpoint: /users
 
 Method: POST
@@ -27,39 +32,33 @@ Params:
     Header:
         Content-Type:application/json
 
-    'username': {
+    # login is case insensitive, it is converted to lowercase before saving
+    'login': {
         'type': 'string',
-        'minlength': 3,
-        'maxlength': 32,
-        **'required': True,**
-        **'unique': True,**
+        'regex': '[a-zA-Z0-9]{3,32}',
+        'required': True,
+        'unique': True,
     },
 
-    'firstname': {
+    'fullname': {
         'type': 'string',
         'minlength': 1,
-        'maxlength': 20,
-    },
-
-    'lastname': {
-        'type': 'string',
-        'minlength': 1,
-        'maxlength': 20,
+        'maxlength': 70,
     },
 
     'email': {
         'type': 'string',
         'minlength': 6,
         'maxlength': 32,
-        **'required': True,**
-        **'unique': True,**
+        'required': True,
+        'unique': True,
     },
 
     'pass': {
         'type': 'string',
         'minlength': 6,
         'maxlength': 32,
-        **'required': True,**
+        'required': True,
     },
 
     'pic': {
@@ -79,8 +78,8 @@ Params:
         'type': 'datetime',
     }
 
-### Get token
-Endpoint: /users/auth/\<username> or /users/auth/\<_id>
+## Get token
+Endpoint: /users/auth/\<login> or /users/auth/\<_id>
 
 Method: GET
 
@@ -89,9 +88,8 @@ Returns:
     'projection': {
         'token': 1,
 
-        'username': 0,
-        'firstname': 0,
-        'lastname': 0,
+        'login': 0,
+        'fullname': 0,
         'email': 0,
         'pic': 0,
         'links_for_bio': 0,
@@ -110,17 +108,16 @@ Params:
 Here 'dXNlcm5hbWU6MDEyMzQ1Njc4OQ==' is base64 encoded string '\<username>:\<pass>'.
 Header name is 'Authorization'. Its value follows after ':'.
 
-### Get account data
-Endpoint: /users/\<username> or /users/\<_id>
+## Get user
+Endpoint: /users/\<login> or /users/\<_id>
 
 Method: GET
 
 Returns:
 
     'projection': {
-        'username': 1,
-        'firstname': 1,
-        'lastname': 1,
+        'login': 1,
+        'fullname': 1,
         'email': 1,
         'pic': 1,
         'links_for_bio': 1,
@@ -139,12 +136,12 @@ Params:
         Authorization: <token>
 
 Token-based authentication is considered a version of Basic Authentication.
-Authorization header contains the auth token as the username, and no password.
+Authorization header contains the auth token as username, and no password.
 
-### Modify user\`s data by user
+### Update user
 Endpoint: /users/\<_id>
 
-    This endpoint /users/\<username> is not available for PATCH.
+    This endpoint /users/\<login> is not available for PATCH.
     Use item <_id> with PATCH method.
 
 Method: PATCH
@@ -156,13 +153,12 @@ Params:
         If-Match: <_etag>
 
 Token-based authentication is considered a version of Basic Authentication.
-Authorization header contains the auth token as the username, and no password.
+Authorization header contains the auth token as username, and no password.
 
 If-Match header should contain proper _etag, otherwise you'll get error 412 "Precondition failed" or 428 for absent If-Match
 
-    'username',
-    'firstname',
-    'lastname',
+    'login',
+    'fullname',
     'email',
     'pass',
     'pic',
@@ -172,7 +168,7 @@ If-Match header should contain proper _etag, otherwise you'll get error 412 "Pre
 
 See list of available fields with descriptions in "Register user"
 
-### Check token
+## Check token
 Endpoint: /users/auth/check/\<token>
 
 Method: GET
@@ -182,9 +178,8 @@ Returns:
     'projection': {
         'token': 1,
 
-        'username': 0,
-        'firstname': 0,
-        'lastname': 0,
+        'login': 0,
+        'fullname': 0,
         'email': 0,
         'pic': 0,
         'links_for_bio': 0,
@@ -202,7 +197,7 @@ Params:
     no params
 
 
-### Useful links
+## Useful links
 ##### flask
 https://www.tutorialspoint.com/flask/flask_quick_guide.htm
 

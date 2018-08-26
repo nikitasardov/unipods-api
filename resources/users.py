@@ -5,15 +5,16 @@ from datetime import datetime
 
 
 class AuthByLoginAndPass(BasicAuth):
-    def check_auth(self, username, password, allowed_roles, resource, method):
+    def check_auth(self, login, password, allowed_roles, resource, method):
         users = app.data.driver.db['users']
-        user = users.find_one({'username': username})
+        user = users.find_one({'login': login})
         return user and password == user['pass']
 
 
 def add_user_defaults(documents):
     for document in documents:
-        document['token'] = sha1((document['username'] + document['pass'] +
+        document['login'] = document['login'].lower()
+        document['token'] = sha1((document['login'] + document['pass'] +
                                  str(datetime.now())).encode('utf-8')).hexdigest()
         document['role'] = 'user'
         document['status'] = 0
@@ -23,10 +24,10 @@ def add_user_defaults(documents):
 USERS = {
     # the standard account entry point is defined as
     # '/accounts/<ObjectId>/'. We define  an additional read-only entry
-    # point accessible at '/accounts/<username>/'.
+    # point accessible at '/accounts/<login>/'.
     'additional_lookup': {
         'url': 'regex("[\w]+")',
-        'field': 'username',
+        'field': 'login',
     },
 
     'public_methods': ['POST'],
@@ -41,24 +42,17 @@ USERS = {
         # _id added automatically by eve
         # _created (reg date) added automatically by eve
 
-        'username': {
+        'login': {
             'type': 'string',
-            'minlength': 3,
-            'maxlength': 32,
+            'regex': '[a-zA-Z0-9]{3,32}',
             'required': True,
             'unique': True,
         },
 
-        'firstname': {
+        'fullname': {
             'type': 'string',
             'minlength': 1,
-            'maxlength': 20,
-        },
-
-        'lastname': {
-            'type': 'string',
-            'minlength': 1,
-            'maxlength': 20,
+            'maxlength': 70,
         },
 
         'email': {
@@ -119,9 +113,8 @@ USERS = {
     # To hide some secret fields from client, you should use inclusive projection
     'datasource': {
         'projection': {
-            'username': 1,
-            'firstname': 1,
-            'lastname': 1,
+            'login': 1,
+            'fullname': 1,
             'email': 1,
             'pic': 1,
             'links_for_bio': 1,
@@ -144,7 +137,7 @@ USERS_AUTH = {
 
     'additional_lookup': {
         'url': 'regex("[\w]+")',
-        'field': 'username',
+        'field': 'login',
     },
 
     'resource_methods': [],
@@ -154,10 +147,8 @@ USERS_AUTH = {
     'public_item_methods': [],
 
     'schema': {
-        'username': {
+        'login': {
             'type': 'string',
-            'minlength': 3,
-            'maxlength': 32,
             'required': True,
             'unique': True,
         },
@@ -168,9 +159,8 @@ USERS_AUTH = {
         'projection': {
             'token': 1,
 
-            'username': 0,
-            'firstname': 0,
-            'lastname': 0,
+            'login': 0,
+            'fullname': 0,
             'email': 0,
             'pic': 0,
             'links_for_bio': 0,
@@ -211,9 +201,8 @@ USERS_AUTH_CHECK = {
         'projection': {
             'token': 1,
 
-            'username': 0,
-            'firstname': 0,
-            'lastname': 0,
+            'login': 0,
+            'fullname': 0,
             'email': 0,
             'pic': 0,
             'links_for_bio': 0,

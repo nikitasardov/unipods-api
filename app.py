@@ -53,9 +53,8 @@ class InnerForm(form.Form):
 
 
 class UsersForm(form.Form):
-    username = fields.StringField('username')
-    firstname = fields.StringField('firstname')
-    lastname = fields.StringField('lastname')
+    login = fields.StringField('login')
+    fullname = fields.StringField('fullname')
     email = fields.StringField('email')
     passw = fields.StringField('pass')
     pic = fields.StringField('pic')
@@ -68,9 +67,9 @@ class UsersForm(form.Form):
 
 
 class UsersView(ModelView):
-    column_list = ('username', 'firstname', 'lastname', 'email', 'pass', 'pic', 'links_for_bio', 'gender',
+    column_list = ('login', 'fullname', 'email', 'pass', 'pic', 'links_for_bio', 'gender',
                    'birthday', 'role', 'status', 'deleted')
-    column_sortable_list = ('username', 'firstname', 'lastname', 'email', 'pass', 'pic', 'links_for_bio', 'gender',
+    column_sortable_list = ('login', 'fullname', 'email', 'pass', 'pic', 'links_for_bio', 'gender',
                             'birthday', 'role', 'status', 'deleted')
 
     form = UsersForm
